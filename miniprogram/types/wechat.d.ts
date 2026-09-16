@@ -1,19 +1,13 @@
-declare namespace WechatMiniprogram {
-  interface CallFunctionResult<T = unknown> { result: T }
-}
-
-declare const wx: {
-  cloud?: {
-    init(options: { env: string; traceUser?: boolean }): void;
-    callFunction<T>(options: { name: string; data: unknown }): Promise<WechatMiniprogram.CallFunctionResult<T>>;
-  };
-  showToast(options: { title: string; icon: "none" | "success"; duration?: number }): void;
-};
-
-declare function App(options: { onLaunch?(): void }): void;
-type MiniProgramPage = {
-  data: Record<string, unknown>;
-  setData(data: Record<string, unknown>): void;
-};
-
-declare function Page(options: Record<string, unknown> & ThisType<MiniProgramPage>): void;
+declare const wx: any;
+declare function App<T extends Record<string, any>>(options: T & ThisType<T>): void;
+declare function Page<T extends Record<string, any>>(options: T & ThisType<T & {
+  data: any;
+  setData(data: Record<string, any>, callback?: () => void): void;
+  getTabBar?(): any;
+}>): void;
+declare function Component<T extends Record<string, any>>(options: T & ThisType<T & {
+  data: any;
+  setData(data: Record<string, any>, callback?: () => void): void;
+  triggerEvent(name: string, detail?: unknown): void;
+}>): void;
+declare function getApp<T = any>(): T;

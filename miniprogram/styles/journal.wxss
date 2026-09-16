@@ -1,0 +1,18 @@
+/* Reference geometry: 777px source content -> 750rpx. Preserve aspect ratios. */
+.journal-page{padding:88rpx 0 calc(125rpx + env(safe-area-inset-bottom));background-color:#f6f1e7;color:#222521;font-size:25rpx}
+.journal-page>.brand{box-sizing:border-box;height:104rpx;min-height:0;margin:0;padding:0 30rpx 19rpx;gap:13rpx;align-items:center}
+.journal-page .brand-mark{width:65rpx;height:68rpx;flex:0 0 65rpx}
+.journal-page .brand-title{font-family:"JournalTitle","KaiTi",serif;font-size:44rpx;line-height:1.12;letter-spacing:4rpx;font-weight:400;color:#555e49}
+.journal-page .brand-subtitle{font-family:"JournalHand","KaiTi",serif;font-size:21rpx;line-height:1.4;letter-spacing:0;margin-top:7rpx;color:#82786d;white-space:nowrap}
+.journal-page .brand-note{z-index:5;right:17rpx;bottom:-5rpx;width:186rpx;font-family:"JournalHand","KaiTi",serif;font-size:20rpx;line-height:1.3;white-space:pre-line;color:#827668;transform:rotate(-9deg);text-align:center}
+.journal-page .demo-stamp{position:absolute;left:30rpx;top:-24rpx;right:auto;padding:0;border:0;border-radius:0;background:transparent;color:#877e72;font-size:13rpx;line-height:20rpx}
+.journal-page .handwriting{font-family:"JournalHand","KaiTi",serif;font-weight:400;white-space:pre-line}
+.journal-page .display-title{font-family:"JournalTitle","KaiTi",serif;font-weight:400}
+.journal-page .card-surface{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.journal-page .heart-mark{width:34rpx;height:38rpx;vertical-align:middle;object-fit:contain}
+.journal-page .ui-icon{width:30rpx;height:30rpx;flex:0 0 30rpx}
+.journal-page .icon-button{display:flex;align-items:center;justify-content:center;background:transparent;padding:0;margin:0;width:70rpx;height:68rpx;border-radius:0}
+.journal-page .icon-button image{width:26rpx;height:26rpx}
+.journal-page .empty{position:relative;padding:40rpx 30rpx;font-family:"JournalHand","KaiTi",serif;font-size:25rpx}
+.journal-page .modal-mask{z-index:200}
+.journal-page .sheet{background:#f7f3eb}

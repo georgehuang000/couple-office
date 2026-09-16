@@ -1,15 +1,42 @@
 {
   "name": "couple-oa",
-  "version": "0.1.0",
+  "version": "1.0.0-beta.1",
   "private": true,
-  "description": "情侣 OA 微信小程序 P0/P1",
+  "description": "两人事务所微信小程序 V1",
+  "engines": {
+    "node": ">=20 <25"
+  },
   "scripts": {
-    "typecheck": "tsc --noEmit -p tsconfig.json",
-    "build": "tsc -p tsconfig.json",
-    "test": "node --test tests/*.test.js",
-    "predeploy:check": "npm run typecheck && npm test"
+    "assets:prepare": "node scripts/prepare-assets.mjs && node scripts/prepare-design-assets.mjs",
+    "assets:journal": "node scripts/prepare-design-assets.mjs",
+    "build:server": "node scripts/build-server.mjs",
+    "build": "npm run assets:prepare && npm run build:server && tsc --noEmit -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p server/tsconfig.json",
+    "test": "npm run build:server && node --test tests/*.test.js",
+    "package:check": "node scripts/check-package.mjs",
+    "wechat:compile": "node scripts/compile-wechat.mjs",
+    "design:qa:capture": "node scripts/capture-design-qa.mjs",
+    "design:qa:compose": "node scripts/compose-design-qa.mjs",
+    "quality:check": "npm audit --omit=dev --audit-level=high",
+    "cloud:init": "node scripts/cloud-admin.mjs init",
+    "cloud:deploy": "node scripts/cloud-admin.mjs deploy",
+    "cloud:backup": "node scripts/cloud-admin.mjs backup",
+    "cloud:restore": "node scripts/cloud-admin.mjs restore",
+    "cloud:cleanup": "node scripts/cloud-admin.mjs cleanup",
+    "predeploy:check": "npm run typecheck && npm test && npm run build && npm run package:check && npm run quality:check && npm run wechat:compile",
+    "upload:experience": "node scripts/upload.mjs"
   },
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "@cloudbase/cli": "3.8.2",
+    "@types/node": "24.7.2",
+    "adm-zip": "0.5.16",
+    "esbuild": "0.25.10",
+    "miniprogram-automator": "0.12.1",
+    "miniprogram-ci": "2.1.31",
+    "sharp": "0.34.4",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "weui-miniprogram": "1.5.6"
   }
 }

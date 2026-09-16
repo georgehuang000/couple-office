@@ -6,11 +6,20 @@
     "es6": true,
     "enhance": true,
     "postcss": true,
-    "minified": false,
-    "urlCheck": true
+    "minified": true,
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "minifyJS": true,
+    "urlCheck": true,
+    "useCompilerPlugins": ["typescript"]
   },
-  "appid": "",
+  "appid": "wx3efc253d50e263b6",
   "projectname": "couple-oa",
-  "description": "两人事务所 - P0/P1 工程骨架"
+  "description": "两人事务所 - V1 体验版",
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": "tests" },
+      { "type": "folder", "value": "docs" }
+    ]
+  }
 }
-

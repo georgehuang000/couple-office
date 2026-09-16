@@ -1,0 +1,22 @@
+Mode: built-in image_gen edit (not CLI).
+Model: built-in image_gen does not expose a selectable model; GPT Image 2.5 was requested by user but exact model cannot be selected or verified by this tool.
+Reference crop: D:\1项目\情侣oa\design-qa-artifacts\reference-regions\task-card.png (741 x 100)
+Crop source: D:\1项目\情侣oa\design-qa-artifacts\references\两人事务所_生活待办清单.png, x=100 y=730 w=741 h=100. Extracted with existing project sharp dependency.
+Requested output: D:\1项目\情侣oa\design-assets\generated\task-card-clean.png
+Generated source: C:\Users\q9801\.codex\generated_images\01a0a977-5b70-7a31-bd86-b4d5d993e6d1\exec-ebfb27f4-3195-4666-9477-1df3740473ff.png (2170 x 725)
+Original preserved: D:\1项目\情侣oa\design-assets\generated\task-card-clean.raw.png
+Delivery processing: image_gen added large white top/bottom letterboxing around a narrow card. Existing project sharp extracted x=0 y=185 w=2170 h=346 only; no painting, synthesis, tone changes, or dependency changes.
+Delivered size: 2170 x 346 pixels; PNG; 895683 bytes.
+Visual QA: one complete blank warm ivory paper card with fine cotton fibers, rounded corners and soft beige shadow; no text, numbers, icons, controls or status capsule remain.
+Known differences: generated paper fibers/outline are reconstructed; card proportions differ from source (6.27:1 vs 7.41:1). Suitable for nine-slice/stretch use. Output is slightly warmer and brighter, with a slightly more visible material edge, than the tiny source crop.
+
+Use case: precise-object-edit
+Asset type: reusable blank raster paper UI card background, suitable for CSS border-image 9-slice scaling.
+Input image 1: EDIT TARGET, a 741 x 100 pixel crop of a task card from the reference Chinese couple's to-do app.
+Primary request: remove EVERY foreground UI element from the card: checked checkbox, breakfast/toast/mug icon, Chinese title, gray subtitle, "08:00", the peach completed-status capsule and every character inside it. Restore uninterrupted warm ivory cotton-paper fibers in all removed regions.
+Preserve the original extremely subtle warm off-white card surface, very fine visible cotton/paper fibers, natural gently rounded rectangle perimeter, softly imperfect material edge, faint beige drop shadow, and thin surrounding warm pale beige paper background. No new decoration.
+Composition: one single blank horizontal card, front-facing flat view, no perspective. The original is a very narrow 741:100 wide crop; if that aspect ratio cannot be output, create a 3:1 wide canvas with the same blank rounded paper card occupying nearly the whole canvas. Use only a very thin border of the surrounding pale warm paper background, just enough to include all rounded corners and its original light shadow. Keep the long center perfectly blank and easy to stretch; the corners, edge and paper texture are the reusable asset.
+Color: delicate nearly-white warm ivory as in the input card, slightly warmer pale ivory-beige outside the card. Low contrast, no brown or gray heavy shading.
+Materials: realistic subtle cotton-fiber paper with lightly mottled grain. Preserve the material's quiet pale texture; not flat vector white, not rough crumpled parchment.
+Text: none at all. No text, numbers, glyphs, symbols, heart, checkbox, icons, illustration, status pill, badge or watermark.
+Constraints: exactly one empty rounded paper card, full card in frame, thin surrounding margins, soft original low-contrast shadow, photoreal paper texture, no SVG or hand-drawn shapes. Do not add tears, tape, folded corners, large border, decorations, bevels, heavy shadows, gradients, buttons, UI controls or page mockups.

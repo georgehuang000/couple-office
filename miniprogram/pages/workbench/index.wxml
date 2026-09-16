@@ -1,23 +1,22 @@
 <view class="page">
-  <text class="title">两人事务所</text>
-  <text class="body">P0 身份能力验证 · P1 工程骨架</text>
-
-  <view class="card">
-    <text class="title">可信身份</text>
-    <text class="status {{state === 'success' ? 'success' : (state === 'error' || state === 'unconfigured' ? 'error' : '')}}">{{statusText}}</text>
-    <text wx:if="{{userId}}" class="body">业务用户 ID：{{userId}}</text>
-    <button class="primary-button" loading="{{state === 'loading'}}" disabled="{{state === 'loading' || state === 'unconfigured'}}" bindtap="verifyIdentity">验证当前身份</button>
-  </view>
-
-  <view wx:if="{{state !== 'success'}}" class="card">
-    <text class="title">受控开发初始化</text>
-    <text class="body muted">仅在账号持有人临时开启云端初始化令牌时使用。完成两名测试用户登记后，应立即关闭。</text>
-    <input class="token-input" password="{{true}}" placeholder="输入临时初始化令牌" value="{{bootstrapToken}}" bindinput="setBootstrapToken" />
-    <button class="primary-button" loading="{{state === 'loading'}}" disabled="{{state === 'loading' || state === 'unconfigured'}}" bindtap="bootstrapIdentity">建立开发身份</button>
-  </view>
-
-  <view class="card">
-    <text class="title">下一阶段</text>
-    <text class="body muted">待完成双真机验证后，再开始创建空间与双人绑定。当前没有待办、审批或演示数据。</text>
-  </view>
+  <view class="brand"><image class="brand-mark" src="/assets/brand-mark.png" mode="aspectFit" /><view><text class="brand-title">两人事务所</text><text class="brand-subtitle">把平凡的日子，过成我们喜欢的样子</text></view><text class="brand-note">两个人，\n一生的生活实验 ♡</text><text wx:if="{{demo}}" class="demo-stamp">只读演示</text></view>
+  <view wx:if="{{loading}}" class="empty">正在整理今天的小事…</view>
+  <block wx:elif="{{waiting}}">
+    <view class="hero waiting-hero"><image class="hero-bg" src="/assets/home-hero.png" mode="aspectFill" /><view class="hero-copy"><text class="hero-title">再等一个人\n就可以开工啦</text><text class="hero-note">邀请码24小时有效，对方申请后还需你确认。</text></view></view>
+    <view class="paper-card"><text class="title">邀请你的另一半</text><text wx:if="{{inviteCode}}" class="invite-code">{{inviteCode}}</text><button wx:if="{{!inviteCode}}" class="primary-button" bindtap="createInvite">生成10位安全邀请码</button><block wx:else><button class="secondary-button" bindtap="copyInvite">复制邀请码</button><button class="secondary-button" bindtap="revokeInvite">撤销这次邀请</button></block></view>
+    <view wx:if="{{joinRequests.length}}"><text class="section-title">待确认的加入申请</text><view wx:for="{{joinRequests}}" wx:key="_id" class="paper-card compact row-between"><text class="title">{{item.applicant.nickname}}</text><view class="button-row join-actions"><button class="mini-button light" data-id="{{item._id}}" data-decision="reject" bindtap="decideJoin">拒绝</button><button class="mini-button" data-id="{{item._id}}" data-decision="confirm" bindtap="decideJoin">确认</button></view></view></view>
+  </block>
+  <block wx:elif="{{dashboard}}">
+    <view class="hero home-hero"><image class="hero-bg" src="/assets/home-hero.png" mode="aspectFill" /><view class="hero-copy"><text class="hero-title">{{greeting}}，{{auth.user.nickname}}</text><text wx:if="{{dashboard.together_days}}" class="hero-note">我们一起的第 {{dashboard.together_days}} 天</text><text wx:else class="hero-note">今天也一起把生活过好</text><view class="avatar-pair hero-avatars"><view wx:for="{{dashboard.member_views}}" wx:key="user_id" class="avatar {{item.peach ? 'peach' : ''}}">{{item.initials}}</view></view></view></view>
+    <view class="row-between"><text class="section-title">今日待办</text><text class="small muted" data-tab="task" bindtap="goItems">查看全部 ›</text></view>
+    <view wx:if="{{!dashboard.today_tasks.length}}" class="paper-card compact muted">今天没有待办，放松一下吧。</view>
+    <view wx:for="{{dashboard.today_tasks}}" wx:key="_id" class="paper-card compact task-row" data-task="{{item}}" bindtap="completeTask"><view class="check {{item.status === 'done' ? 'done' : ''}}"></view><view class="grow"><text class="title task-title {{item.status === 'done' ? 'completed' : ''}}">{{item.title}}</text><text class="small muted">{{item.due_text}} · {{item.status === 'doing' ? '进行中' : '待开始'}}</text></view><text wx:if="{{item.priority === 'important'}}" class="pill">重要</text></view>
+    <view class="row-between"><text class="section-title">待回应的申请</text><text class="small muted" data-tab="approval" bindtap="goItems">去处理 ›</text></view>
+    <view wx:if="{{!dashboard.pending_approvals.length}}" class="paper-card compact muted">没有需要回应的申请。</view>
+    <view wx:for="{{dashboard.pending_approvals}}" wx:key="_id" class="paper-card approval-preview" data-tab="approval" bindtap="goItems"><image src="/assets/approval-note.png" mode="aspectFill" /><view><text class="pill">等你回应</text><text class="title">{{item.title}}</text><text class="body small">{{item.content}}</text></view></view>
+    <view class="row-between"><text class="section-title">最近日程</text><text class="small muted" bindtap="goCalendar">打开日历 ›</text></view>
+    <view wx:for="{{dashboard.upcoming_events}}" wx:key="_id" class="paper-card compact row-between" bindtap="goCalendar"><view><text class="title">{{item.title}}</text><text class="small muted">{{item.time_text}}</text></view><text class="pill sage">{{item.type === 'date' ? '约会' : '日常'}}</text></view>
+    <view wx:if="{{dashboard.next_anniversary}}" class="paper-card anniversary-card"><image src="/assets/flower-note.png" mode="aspectFill" /><view><text class="small muted">下一个重要日子</text><text class="title">{{dashboard.next_anniversary.title}}</text><text class="anniversary-days">{{dashboard.next_anniversary.days_until}}</text><text class="small muted">天后</text></view></view>
+  </block>
+  <view wx:else class="error-panel">暂时没能读取工作台，下拉重试。</view>
 </view>

@@ -1,0 +1,17 @@
+Generation mode: Built-in image_gen__imagegen. New texture generated after visually inspecting the reference screenshot.
+Model: Built-in tool does not expose model selection; gpt image2.5 cannot be selected or independently verified. No CLI/API fallback used.
+Style reference inspected: D:\1项目\情侣oa\design-qa-artifacts\references\两人事务所_生活待办清单.png.
+Original output: D:\1项目\情侣oa\design-assets\generated\paper-texture-original.png.
+Reusable final: D:\1项目\情侣oa\design-assets\generated\paper-texture.png, 1024 x 1024 PNG. Only resizing performed with the project's existing sharp dependency; no painted edits.
+Visual QA: No writing, objects, borders, folds, shadows or coarse grain. 2x2 tiling preview inspected at D:\1项目\情侣oa\design-qa-artifacts\reference-regions\paper-texture-tiling-preview.png with no obvious seam at UI scale.
+Color QA: Mean RGB 246,241,231 (#f6f1e7), within 0/1/2 RGB levels of requested #f6f2e9. Low-contrast natural cotton grain.
+Seam QA: Edge-pixel mean absolute RGB differences left/right=2.71 and top/bottom=3.31 on 0-255; interior neighboring columns=1.80. Generated tile is visually repeatable but opposing edge pixels are not mathematically identical.
+
+Full prompt:
+Use case: photorealistic-natural
+Asset type: Reusable seamless tileable paper texture for the background and cards of a soft couples daily-planning app.
+Primary request: Generate a square 1024 × 1024 texture tile showing only a perfectly flat, softly warm ivory cotton paper surface. The target overall color is approximately sRGB hex #f6f2e9. Match the blank cream cotton-paper feel of the reference app screenshot viewed in this conversation, without reproducing any interface, text or objects.
+Material: Authentic extremely subtle soft cotton fibers embedded in uncoated paper, very fine diffuse fibers and faint low-contrast irregular natural paper grain. A calm clean cream-white surface, slightly warm, never gray and never strongly yellow or beige.
+Composition: Entire canvas filled edge-to-edge with the same paper surface viewed exactly perpendicular. Uniform neutral diffuse lighting everywhere. The texture MUST be genuinely seamless and repeatable horizontally and vertically; top and bottom edges must join naturally, and left and right edges must join naturally. No visible tiling seam, border, vignette or edge variation. Keep microtexture scale and brightness uniform.
+Constraints: No paper edges, no tears, no folds, no creases, no curled corners, no relief, no shadows, no highlights, no gradients, no stains, no strong speckles, no coarse grain, no obvious repeating pattern, no objects, no leaves, no flowers, no tape, no illustrations, no phone frame, no UI, no typography, no letters, no digits, no icons, no logos, no watermark.
+This should read as a clean warm off-white fill at small scale, with fine natural cotton-paper texture visible only on close inspection.

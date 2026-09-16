@@ -1,28 +1,66 @@
-# P0 手工配置与双真机验证
+# 手工配置与交付
 
-## 必须由账号持有人完成
+## 1. 创建开发云环境
 
-1. 在微信公众平台确认 AppID、适用服务类目、认证/备案要求。
-2. 在 CloudBase 控制台创建开发环境，将该环境与小程序 AppID 关联；记录套餐、到期日、超额计费开关和告警方式。
-3. 将环境 ID 写入 `miniprogram/config/env.ts` 的 `CLOUDBASE_ENV_ID`，并在微信开发者工具的项目详情填写 AppID。
-4. 进入 `cloudfunctions/api` 后执行 `npm install`，然后在开发者工具/云控制台上传并部署 `api` 云函数。此依赖只属于云函数运行时，不需加入小程序客户端。
-5. 首次取得两个测试账号身份时，在云函数环境变量中临时设置随机的、至少 24 字符的 `COUPLE_OA_BOOTSTRAP_TOKEN`。两个测试者分别在“工作台”输入该令牌并建立开发身份；令牌不写进代码、白名单或日志。
-6. 账号持有人在 CloudBase `users` 集合中读取刚建的两条记录的 `_id`（仅在控制台可见），将它们以逗号分隔写入 `COUPLE_OA_ALLOWED_OPENIDS`。然后删除 `COUPLE_OA_BOOTSTRAP_TOKEN` 并重新部署。常规身份验证只接受白名单，初始化令牌不可长期保留。
-7. 保持客户端无直接数据库读写权限。P2 前还需补充生产权限、索引和白名单初始化流程。
+1. 在微信开发者工具中扫码重新登录（当前云访问 token 已过期）。
+2. 为 AppID `wx3efc253d50e263b6` 创建一个只放测试数据的 CloudBase 开发环境，记录精确环境 ID。
+3. 将环境 ID 写入 `miniprogram/config/env.ts` 的 `CLOUDBASE_ENV_ID`。环境 ID 不是密钥，但不要把开发/生产的实际切换修改合并回通用分支。
+4. 确认套餐、费用、到期时间、超额开关和告警。首次开发环境不放真实私人数据。
 
-## 双真机验证
+## 2. 初始化集合、索引和权限
 
-1. 按上文临时初始化并登记两个不同微信号，然后删除初始化令牌、重新部署。
-2. iPhone 上打开“工作台”，点“验证当前身份”。应显示“可信身份验证成功”和一个 `userId`；不应显示 OpenID。
-3. Android 上重复操作。应成功且 `userId` 与第一台不同。
-4. 从白名单移除其中一个账号后再测试：应显示授权失败，而不是返回他人的身份或创建空间。
-5. 将环境 ID 临时保留为示例值测试：页面应显示“环境尚未完成配置”，且不发起云函数调用。
-6. 在断网或暂停云函数后重试：页面应显示调用失败并允许重试；不得显示成功。
+CloudBase CLI 需先登录：
 
-## 待确认清单
+```powershell
+npx tcb login
+npm run cloud:init -- --env <dev-env-id>
+```
 
-- AppID 和开发/生产环境关联是否正确。
-- 个人主体是否具备与实际功能相符的服务类目，以及认证、备案、审核要求。
-- CloudBase 套餐、费用、到期时间、告警和按量付费开关。
-- 是否存在适配的订阅消息模板（P0 只探测，不接入发送）。
-- 至少一台 iPhone 与一台 Android 的真机结果。
+`cloud:init` 会根据 `cloudbase/indexes.json` 创建集合/索引，并应用 `security/admin-only.rego`：终端可调用云函数，但不允许客户端直读/直写文档数据库。该策略会取代旧网关鉴权，执行后必须在控制台回读确认。
+
+## 3. 部署云函数
+
+```powershell
+npm run cloud:deploy -- --env <dev-env-id>
+```
+
+这会先构建 TypeScript，再部署 Node.js 20.19 的 `api` 和每天 03:10 运行的 `scheduleJobs`。在控制台检查两个函数的运行时、依赖安装、时区和定时触发器。
+
+## 4. 登记两个测试微信身份
+
+1. 在 `api` 云函数临时设置随机且不少于 24 位的 `COUPLE_OA_BOOTSTRAP_TOKEN`。
+2. 两个微信账号分别在引导页展开“开发身份初始化”，输入令牌。
+3. 在 `identities` 集合读取两条记录的 `openid` 字段，逗号分隔写入 `COUPLE_OA_ALLOWED_OPENIDS`。
+4. 删除 `COUPLE_OA_BOOTSTRAP_TOKEN`，重新部署 `api`。再次验证未在白名单的账号只能看只读演示，不会创建业务用户。
+
+## 5. 备份、恢复和清理
+
+```powershell
+npm run cloud:backup -- --env <env-id>
+npm run cloud:restore -- --env <env-id> --time "2026-09-16 10:00:00" --tables '<CloudBase恢复表JSON>' --confirm-restore <env-id>
+npm run cloud:cleanup -- --env <dev-env-id> --confirm-cleanup <dev-env-id>
+```
+
+备份使用 CloudBase CLI 3.8.2 的 `db nosql dump`，下载到已忽略的 `backups/`。恢复使用官方时点恢复；先执行 `npx tcb db nosql backup time -e <env-id>` 查询可用时间，再执行 `npx tcb db nosql backup collection --time "..." -e <env-id>` 预览可恢复表，最后将精确 JSON 映射传给脚本。
+
+生产环境的初始化/部署/恢复/清理必须额外携带：
+
+```text
+--production --confirm-production <exact-prod-env-id>
+```
+
+清理会删除声明集合里的全部文档，保留集合与索引；只用于明确的测试环境重置。
+
+## 6. 上传体验版
+
+1. 完成 `docs/acceptance.md` 中所有开发云环境与双真机项。
+2. 在微信后台将当前出口 IP 加入代码上传白名单。
+3. 运行：
+
+```powershell
+npm run predeploy:check
+npm run wechat:compile
+npm run upload:experience
+```
+
+上传脚本固定使用版本 `1.0.0-beta.1`、AppID `wx3efc253d50e263b6` 和本机 `private.wx3efc253d50e263b6.key`。它只上传体验版，不提审、不发布、不开通付费套餐。

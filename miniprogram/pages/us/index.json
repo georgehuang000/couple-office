@@ -1,2 +1,1 @@
-{ "navigationBarTitleText": "我们" }
-
+{ "navigationBarTitleText": "我们", "enablePullDownRefresh": true, "backgroundTextStyle": "dark" }

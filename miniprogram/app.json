@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/onboarding/index",
     "pages/workbench/index",
     "pages/items/index",
     "pages/calendar/index",
@@ -7,11 +8,13 @@
   ],
   "window": {
     "navigationBarTitleText": "两人事务所",
+    "navigationStyle": "custom",
     "navigationBarBackgroundColor": "#FFFDF9",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#F7F4EF"
   },
   "tabBar": {
+    "custom": true,
     "color": "#7C746C",
     "selectedColor": "#846D52",
     "backgroundColor": "#FFFDF9",
@@ -23,6 +26,6 @@
       { "pagePath": "pages/us/index", "text": "我们" }
     ]
   },
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"
 }
-

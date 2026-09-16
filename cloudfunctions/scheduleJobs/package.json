@@ -1,0 +1,8 @@
+{
+  "name": "couple-oa-schedule-jobs",
+  "version": "1.0.0-beta.1",
+  "private": true,
+  "main": "index.js",
+  "engines": { "node": "20.19" },
+  "dependencies": { "wx-server-sdk": "4.0.2" }
+}

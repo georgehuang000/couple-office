@@ -1,10 +1,12 @@
 {
   "name": "couple-oa-api",
-  "version": "0.1.0",
+  "version": "1.0.0-beta.1",
   "private": true,
   "main": "index.js",
   "dependencies": {
-    "wx-server-sdk": "latest"
+    "wx-server-sdk": "4.0.2"
+  },
+  "engines": {
+    "node": "20.19"
   }
 }
-

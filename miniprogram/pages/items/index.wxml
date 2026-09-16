@@ -1,2 +1,62 @@
-<view class="page"><view class="card"><text class="title">事项</text><text class="body muted">P1 导航壳：待办与审批将在后续阶段实现。</text></view></view>
+<view class="page journal-page items-page {{tab === 'approval' ? 'show-approvals' : ''}}">
+  <view class="brand">
+    <image class="brand-mark" src="/assets/brand-mark.png" />
+    <view><text class="brand-title">两人事务所</text><text class="brand-subtitle">把平凡的日子，过成我们喜欢的样子</text></view>
+    <text class="brand-note">两个人，\n一生的生活实验 ♡</text>
+    <text wx:if="{{demo}}" class="demo-stamp">只读演示</text>
+  </view>
 
+  <view wx:if="{{tab === 'task'}}" class="journal-hero task-hero">
+    <image class="hero-frame" src="/assets/journal/task-hero.jpg" mode="scaleToFill" />
+    <view class="hero-main-copy"><view class="hero-heading"><text class="journal-title">待办事项</text><image class="hero-heart" src="/assets/journal/heart-peach.png" /></view><text class="journal-subtitle">一起完成生活里的小事\n也是一种浪漫呀！</text></view>
+    <text class="paper-quote left-quote">生活很琐碎\n但因为有你\n每一件小事都变得值得 ♡</text>
+    <text class="paper-quote right-quote">一起把\n小事变成幸福 ♡</text>
+  </view>
+
+  <view wx:else class="journal-hero approval-hero">
+    <image class="hero-frame" src="/assets/journal/approval-hero.jpg" mode="scaleToFill" />
+    <view class="hero-main-copy"><view class="hero-heading"><text class="journal-title">待处理申请</text><image class="hero-heart" src="/assets/journal/heart-peach.png" /></view><text class="journal-subtitle">生活需要讨论，也需要一起决定\n每一个申请，都是我们更靠近的机会。</text></view>
+    <text class="paper-quote left-quote">小提示：\n用理解和沟通，把生活过成喜欢的样子</text>
+    <text class="paper-quote right-quote">好的决定，\n都是两个人一起做的 ♡</text>
+  </view>
+
+  <view wx:if="{{tab === 'task'}}" class="reference-tabs"><view wx:for="{{filters}}" wx:key="*this" class="reference-tab {{filterIndex === index ? 'active' : ''}}" data-index="{{index}}" bindtap="chooseFilter">{{item}}</view><text class="tabs-whisper">一起完成\n就是最好的进度 ♡</text></view>
+  <view wx:if="{{loading}}" class="empty">正在找到那些小事…</view>
+  <view wx:elif="{{!items.length}}" class="empty"><image src="/assets/approval-note.png" mode="aspectFit" /><text>这里还是空的，创建第一件吧。</text></view>
+
+  <view wx:elif="{{tab === 'task'}}" class="task-list-paper">
+    <view wx:for="{{items}}" wx:key="_id" class="reference-task {{item.priority === 'important' ? 'important' : ''}}">
+      <image class="card-surface" src="/assets/journal/task-card.jpg" mode="scaleToFill" />
+      <image class="reference-check" src="{{item.status === 'done' ? '/assets/check-done.png' : '/assets/check-empty.png'}}" data-item="{{item}}" data-target="{{item.status === 'done' ? 'todo' : 'done'}}" bindtap="transitionTask" mode="aspectFit" />
+      <image class="task-icon" src="{{item.icon_path}}" mode="aspectFit" />
+      <view class="task-copy"><text class="task-name">{{item.title}}</text><text class="task-desc">{{item.description}}</text></view>
+      <text class="task-time">{{item.time_text}}</text>
+      <view class="task-trailing"><text wx:if="{{item.badge_text}}" class="task-badge">{{item.badge_text}}</text><view wx:elif="{{item.assignee_id}}" class="tiny-avatars"><image src="/assets/avatar-him.png" /><image src="/assets/avatar-her.png" /></view></view>
+      <view wx:if="{{!demo}}" class="live-actions"><button wx:if="{{item.status === 'todo'}}" data-item="{{item}}" data-target="doing" bindtap="transitionTask">开始</button><button wx:if="{{item.status === 'todo' || item.status === 'doing'}}" data-item="{{item}}" data-target="done" bindtap="transitionTask">完成</button><button data-item="{{item}}" bindtap="openEditTask">编辑</button><button wx:if="{{item.creator_id === authUserId}}" data-item="{{item}}" bindtap="deleteTask">删除</button></view>
+    </view>
+  </view>
+
+  <view wx:else class="approval-list-paper">
+    <view wx:for="{{items}}" wx:key="_id" class="reference-approval">
+      <image class="card-surface" src="/assets/journal/approval-card.jpg" mode="scaleToFill" />
+      <image class="approval-item-icon" src="{{item.icon_path}}" mode="aspectFill" />
+      <view class="approval-item-copy"><text class="approval-name">{{item.title}}</text><text class="approval-desc">{{item.content}}</text></view>
+      <view class="approval-meta"><image src="/assets/avatar-him.png" /><image src="/assets/avatar-her.png" /><text>{{item.applicant_name}} 申请\n{{item.time_text}}</text></view><text class="approval-note-text">{{item.note_text}}</text>
+      <text class="approval-status">{{item.status === 'pending' ? '等你审批' : item.status_text}}</text><image class="approval-arrow" src="/assets/journal/chevron-right-ink.png" />
+      <view wx:if="{{item.status === 'pending' && item.approver_id === authUserId}}" class="approval-actions"><button class="agree" data-item="{{item}}" data-decision="approved" bindtap="decideApproval"><image src="/assets/journal/check-white.png" />同意</button><button data-item="{{item}}" data-decision="rejected" bindtap="decideApproval">再想想</button></view>
+      <view wx:elif="{{item.status === 'pending'}}" class="approval-actions"><button data-item="{{item}}" bindtap="cancelApproval">撤回申请</button></view>
+      <view wx:elif="{{item.status === 'approved'}}" class="approval-actions"><button class="agree" data-item="{{item}}" bindtap="approvalToEvent">写入日历</button></view>
+      <view wx:else class="approval-actions"><button data-item="{{item}}" bindtap="copyApproval">复制重提</button></view>
+    </view>
+  </view>
+
+  <view wx:if="{{loadingMore}}" class="small muted loading-more">加载中…</view>
+  <view wx:if="{{tab === 'task'}}" class="task-footer"><view class="wide-add" bindtap="openCreate"><image src="/assets/journal/plus-sage.png" /><text>添加待办</text></view><text class="footer-whisper">小小的待办\n也是我们共同的生活 ♡</text></view>
+  <view wx:else class="approval-footer"><text>生活的每一个选择，\n都有你在真好 ♡</text></view>
+  <view class="mode-actions"><text data-tab="{{tab === 'task' ? 'approval' : 'task'}}" bindtap="switchTab">{{tab === 'task' ? '查看待处理申请' : '返回待办事项'}}</text><text wx:if="{{tab === 'approval'}}" bindtap="openCreate">发起申请</text></view>
+
+  <view wx:if="{{showSheet}}" class="modal-mask" bindtap="closeSheet"><view class="sheet" catchtap="stopBubble"><view class="row-between"><text class="sheet-title">{{tab === 'task' ? (editingTask ? '编辑待办' : '添加待办') : '发起申请'}}</text><text class="muted" bindtap="closeSheet">关闭</text></view><view class="field"><text class="field-label">标题</text><input class="input" maxlength="80" data-field="title" value="{{form.title}}" bindinput="updateForm" placeholder="一句话说清这件事" /></view><view class="field"><text class="field-label">补充说明</text><textarea class="textarea" maxlength="1000" data-field="description" value="{{form.description}}" bindinput="updateForm" placeholder="可选，写下你想说的" /></view>
+    <block wx:if="{{tab === 'task'}}"><view class="field"><text class="field-label">负责人</text><picker mode="selector" range="{{assigneeOptions}}" range-key="label" value="{{assigneeIndex}}" bindchange="updateAssignee"><view class="picker">{{assigneeOptions[assigneeIndex].label}}</view></picker></view><view class="field"><text class="field-label">预计完成日</text><picker mode="date" data-field="due_date" value="{{form.due_date}}" bindchange="updateForm"><view class="picker">{{form.due_date || '不设日期'}}</view></picker></view><view class="field"><text class="field-label">优先级</text><radio-group data-field="priority" bindchange="updateForm" class="radio-row"><label><radio value="normal" checked="{{form.priority === 'normal'}}" color="#66775f" />普通</label><label><radio value="important" checked="{{form.priority === 'important'}}" color="#e79b83" />重要</label></radio-group></view></block>
+    <block wx:else><view class="field"><text class="field-label">申请类型</text><picker mode="selector" range="{{approvalTypes}}" value="{{approvalTypeIndex}}" bindchange="updateApprovalType"><view class="picker">{{approvalTypes[approvalTypeIndex]}}</view></picker></view><view class="field"><text class="field-label">希望回复日期</text><picker mode="date" data-field="reply_date" value="{{form.reply_date}}" bindchange="updateForm"><view class="picker">{{form.reply_date || '不设期限'}}</view></picker></view></block>
+    <button class="primary-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submit">{{tab === 'task' ? (editingTask ? '保存修改' : '加入待办') : '提交申请'}}</button></view></view>
+</view>

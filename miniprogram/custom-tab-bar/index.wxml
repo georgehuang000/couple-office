@@ -1,0 +1,8 @@
+<view class="tab-shell">
+  <image class="tab-paper" src="/assets/tab-paper.png" mode="scaleToFill" />
+  <view wx:for="{{list}}" wx:key="pagePath" class="tab-item {{selected === index ? 'active' : ''}}" data-index="{{index}}" bindtap="switchTab">
+    <mp-icon icon="{{item.icon}}" type="{{selected === index ? 'filled' : 'outline'}}" size="25" color="{{selected === index ? selectedColor : color}}" />
+    <text>{{item.text}}</text>
+  </view>
+</view>
+<text class="tab-whisper">和你一起\n把日子过成喜欢的样子 ♡</text>

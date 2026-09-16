@@ -1,0 +1,21 @@
+Mode: built-in image_gen edit (not CLI).
+Model: built-in image_gen does not expose a selectable model; GPT Image 2.5 was requested by user but exact model cannot be selected or verified by this tool.
+Reference image: D:\1项目\情侣oa\design-qa-artifacts\reference-regions\approval-hero.png (777 x 378)
+Requested output: D:\1项目\情侣oa\design-assets\generated\approval-hero-clean.png
+Generated source: C:\Users\q9801\.codex\generated_images\01a0a977-5b70-7a31-bd86-b4d5d993e6d1\exec-a9ee3b7a-1804-49d3-9daa-515264088762.png
+Saved result: original generated PNG copied without editing or re-encoding; 1798 x 875 pixels; 1837200 bytes.
+Visual QA: all external page text and standalone heart icons removed. Upper-left title region and both lower paper strips are blank. Original cup decoration retained inside the photograph. Layout is closely preserved, but image generation reconstructs photo and paper texture details and cannot guarantee byte/pixel identity.
+
+Use case: precise-object-edit
+Asset type: reusable raster hero background for a Chinese couple's application management webpage.
+Input image 1: EDIT TARGET, the exact 777 × 378 pixel scrapbook hero crop, not merely a style reference.
+Primary request: remove ONLY the overlaid Chinese page text and standalone heart icons, leaving the complete original collage otherwise unchanged as closely as possible. This is careful text erasure and paper reconstruction, not a redesign.
+Edit the original at the same wide 777:378 aspect ratio and same framing. Preserve every object's position, angle, scale, edges, light and shadow. Do not zoom, recrop, move, restyle, or add objects.
+Erase the upper-left heading “待处理申请”, its peach heart, and the two gray explanatory lines under it. Reconstruct clean realistic cream paper in those erased spots. The entire upper-left title and subtitle region is now empty textured paper.
+Erase every character on the torn lower-left horizontal note, including “小提示:” and the following line, and erase its small outlined heart. Keep its irregular torn outline, cream paper texture, shadows, bronze ring through the upper-left hole, and diagonally placed translucent muted-green tape at the upper right in exactly their existing positions.
+Erase the writing and outline heart from the lower-right photo-caption paper strip. This paper strip must be blank while retaining exactly its angled shape, texture, boundaries and shadows.
+Keep the tilted photograph of a couple's hands held across a wooden table pixel-faithfully wherever possible: sleeves, intertwined hands, two ceramic cups, window bokeh, room, background plant and the photo's white border unchanged. The tiny hand-lettered decoration physically printed on the right coffee mug may stay exactly as it is; that is part of the photograph, not page text.
+Keep the muted-green top tape, right-side eucalyptus/olive-like leaf sprig, outer cream scrapbook paper, top torn white-paper layers, grain and small material marks unchanged.
+Style: original realistic warm handmade paper collage, subtle paper fibers, natural photograph, soft shadows.
+Text: NO added text, no new glyphs, no watermark. All page text areas and all standalone heart icons must be completely cleared. Only original printing inside the photographed coffee cup may remain.
+Constraints: output a flat complete raster background, same full-image composition and 777:378 aspect ratio, no margins, no simulated screen or frame. No SVG, no new layout, no new illustration.

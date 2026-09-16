@@ -1,0 +1,8 @@
+{
+  "version": "2.1",
+  "functionRoot": "./cloudfunctions",
+  "functions": [
+    { "name": "api", "dir": "./cloudfunctions/api", "handler": "index.main", "runtime": "Nodejs20.19", "timeout": 20, "memorySize": 256, "installDependency": true },
+    { "name": "scheduleJobs", "dir": "./cloudfunctions/scheduleJobs", "handler": "index.main", "runtime": "Nodejs20.19", "timeout": 60, "memorySize": 256, "installDependency": true, "triggers": [{ "name": "dailyMaintenance", "type": "timer", "config": "0 10 3 * * * *" }] }
+  ]
+}

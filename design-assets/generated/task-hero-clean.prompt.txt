@@ -1,0 +1,14 @@
+Generation mode: Built-in image_gen__imagegen, precise edit with referenced_image_paths.
+Model: Built-in tool does not expose model selection; the requested gpt image2.5 identifier could not be independently selected or verified. No CLI fallback used.
+Source edit target: D:\1项目\情侣oa\design-qa-artifacts\reference-regions\task-hero.png (777 x 395).
+Generated original: D:\1项目\情侣oa\design-assets\generated\task-hero-clean.png (1759 x 894). Original tool output copied without image processing.
+Visual check: All Chinese writing and all three heart symbols removed. Photo, floral sprigs, tape and paper layout substantially preserved. Generated paper textures and photograph details differ slightly; this is not a literal unchanged-pixel inpaint. Aspect ratio matches within one output pixel.
+
+Full prompt:
+Use case: precise-object-edit
+Asset type: Reusable text-free bitmap collage background for a pixel-faithful recreation of a couples task-list app.
+Input image 1 is the exact edit target, a 777 × 395 pixel crop, not merely a style reference.
+Primary request: Remove ONLY all visible Chinese writing and all heart symbols from this image. Reconstruct the natural blank paper textures beneath the removed marks. The upper-left heading and subtitle area must become blank textured cream paper. The lower-left torn paper note must become completely blank textured off-white paper. The lower-right note must also be completely blank textured off-white paper.
+Invariants: Keep the entire composition pixel-aligned to the source as closely as possible. Preserve the exact canvas bounds and aspect ratio 777:395 (777 pixels wide by 395 pixels high if supported). Preserve the sunset photograph of the couple from behind, their silhouettes and posture, the skyline, photo print border and tilt. Preserve all irregular paper edges, tears, folds, layers, original warm cream background, subtle grain and shadows. Keep the pink flowers and stems at lower left, sage-green tape at lower left and top of the photo, the right-side olive leaves and their attached beige tape, in precisely the same positions and proportions. Do not change the photo, subjects, lighting, paper geometry, framing, palette or textures. No recropping and no new elements.
+Text: None. Remove the large dark heading 待办事项, the coral heart beside it, both smaller subtitle lines, every handwritten line from both note papers, and both outlined heart symbols on the notes.
+Avoid: Any text, letters, digits, calligraphy, symbols, hearts, watermark, logo, border additions or composition redesign. No vector illustration substitution. This is a surgical cleanup of an existing realistic paper collage.

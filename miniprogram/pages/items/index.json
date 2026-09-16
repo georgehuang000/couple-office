@@ -1,2 +1,1 @@
-{ "navigationBarTitleText": "事项" }
-
+{ "navigationBarTitleText": "事项", "enablePullDownRefresh": true, "backgroundTextStyle": "dark" }

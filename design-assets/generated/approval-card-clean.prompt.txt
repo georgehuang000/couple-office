@@ -1,0 +1,16 @@
+Mode: built-in image_gen edit. Model is not selectable by this tool; GPT Image 2.5 was not asserted.
+Source: D:/1项目/情侣oa/design-qa-artifacts/references/暖色手账风两人事务所申请页.png
+Reference crop: x=99, y=608, width=744, height=214; saved at D:/1项目/情侣oa/design-qa-artifacts/reference-regions/approval-card.png
+
+Use case: precise-object-edit
+Asset type: reusable blank long paper card background for dynamic native UI overlays.
+Input image: Image 1 is the exact EDIT TARGET, a 744 by 214 pixel crop. Match the input composition exactly.
+Primary request: Remove all foreground UI content from this paper card: the airplane illustration and its pale green icon square, both circular portrait avatars, all Chinese characters and all numbers/date/time/punctuation, the peach status capsule, the peach message bubble and outlined heart, the dark green agree button including its white check mark and text, the outlined button including its border and text, and the right arrow. Inpaint every removed area with the same natural warm cream paper fiber texture.
+Preserve exactly: the entire original long paper card silhouette including its softly rounded upper corners, natural irregular torn edges especially along the bottom, the very faint soft drop shadow, the warm off-white fibrous paper texture, the warm beige paper-colored background outside the card, exact original framing and all edge locations.
+Composition: very wide horizontal image with exact original aspect ratio 744:214. The paper card fills the frame almost edge-to-edge exactly as in the reference. Do not crop, stretch or add padding. Preserve thin outer background margins and shadows from the original.
+Constraints: This is surgical removal of foreground elements only. Keep the original paper shape and lighting unchanged; do not redesign or redraw the card. The result must be one completely blank, continuous believable paper surface with NO text, numerals, avatars, icons, hearts, buttons, colored capsules, borders, arrows, watermarks, logos or additional decorations. No transparency and no checkerboard. No fake empty translucent controls. Only the natural paper card with its preserved real paper texture and edge shadow.
+
+Generated raw image: D:/1项目/情侣oa/design-assets/generated/approval-card-clean.generated.png (2170 x 725)
+Project-ready image: D:/1项目/情侣oa/design-assets/generated/approval-card-clean.png (744 x 214)
+Postprocessing: built-in returned a roughly 3:1 canvas with additional outside-paper margins. Sharp extracted x=0, y=20, width=2170, height=624 to remove added outside-paper margins, then resized to the original 744 x 214 crop dimensions and encoded PNG. No painting or replacement texture was applied after generation.
+Visual review: all icons, portraits, text, digits, punctuation, colored capsules and buttons removed. Warm cream fibrous paper, natural torn outline and faint shadow retained. No transparency checkerboard. Fine paper fibers and edge details have been re-synthesized, so these are not byte-identical unedited pixels.

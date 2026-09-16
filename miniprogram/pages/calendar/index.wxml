@@ -1,2 +1,27 @@
-<view class="page"><view class="card"><text class="title">日历</text><text class="body muted">P1 导航壳：共同日历和纪念日尚未实现。</text></view></view>
+<view class="page calendar-page">
+  <view class="brand"><image class="brand-mark" src="/assets/brand-mark.png" /><view><text class="brand-title">两人事务所</text><text class="brand-subtitle">把平凡的日子，过成我们喜欢的样子</text></view><text class="brand-note">和你一起，\n每一天都值得期待 ♡</text><text wx:if="{{demo}}" class="demo-stamp">只读演示</text></view>
 
+  <view class="calendar-intro"><text>和你一起，\n把日子过成喜欢的样子 <text>♥</text></text><view class="intro-note">平凡的日子\n也会闪闪发光。</view></view>
+
+  <view class="calendar-paper">
+    <image class="paper-bg" src="/assets/calendar-paper.png" mode="scaleToFill" />
+    <view class="calendar-inner"><view class="month-nav"><text data-delta="-1" bindtap="changeMonth">‹</text><text class="month-title">{{monthLabel}}　⌄</text><text data-delta="1" bindtap="changeMonth">›</text></view><view class="week-row"><text wx:for="{{weekdays}}" wx:key="*this">{{item}}</text></view><view class="days"><view wx:for="{{days}}" wx:key="key" class="day {{item.muted ? 'muted-day' : ''}} {{item.selected ? 'selected' : ''}} {{item.today ? 'today' : ''}}" data-date="{{item.date}}" bindtap="selectDay"><text>{{item.day}}</text><view wx:if="{{item.hasEvent}}" class="event-dot"></view></view></view><text class="calendar-whisper">每一个有你的日子\n都是特别的 ♡</text></view>
+  </view>
+
+  <view class="agenda-paper">
+    <view class="agenda-heading"><text>{{demo ? '今天 · 4月18日 周五' : selectedDate + ' 的安排'}}</text><text>「 和你在一起，\n就是最好的日常。」</text></view>
+    <view wx:if="{{loading}}" class="empty">正在翻日历…</view>
+    <view wx:elif="{{!selectedEvents.length}}" class="empty compact">这天没有安排，可以留给彼此。</view>
+    <view wx:for="{{selectedEvents}}" wx:key="_id" class="agenda-row {{item._id === 'de2' ? 'with-meal' : ''}}">
+      <image class="agenda-icon" src="{{item.icon_path}}" mode="aspectFill" />
+      <view class="agenda-copy"><text class="agenda-title">{{item.title}}</text><view class="agenda-meta"><image src="/assets/meta-clock.png" />{{item.time_text}}　<image src="/assets/meta-pin.png" />{{item._id === 'de1' ? '万象城影城' : '我们家'}}</view></view>
+      <text class="agenda-note">{{item.description}} ♡</text>
+      <image wx:if="{{item._id === 'de2'}}" class="meal-photo" src="/assets/photo-meal.jpg" mode="aspectFill" />
+      <view wx:if="{{!demo}}" class="agenda-actions"><text data-item="{{item}}" bindtap="openEdit">编辑</text><text data-item="{{item}}" bindtap="deleteEvent">删除</text></view>
+    </view>
+  </view>
+
+  <view class="upcoming-paper"><view class="upcoming-heading"><text>接下来</text><text bindtap="openCreate">+　新日程</text></view><view wx:for="{{futureEvents}}" wx:key="_id" class="upcoming-row"><image src="{{item.icon_path}}" mode="aspectFill" /><view class="grow"><text class="agenda-title">{{item.title}}</text><view class="agenda-meta"><image src="/assets/meta-calendar.png" />{{item.date_text}}　{{item.time_text}}</view></view><text class="upcoming-note">{{item.description}} ♡</text></view></view>
+
+  <view wx:if="{{showSheet}}" class="modal-mask" bindtap="closeSheet"><view class="sheet" catchtap="stopBubble"><view class="row-between"><text class="sheet-title">{{editingEvent ? '编辑日程' : '添加一项日程'}}</text><text class="muted" bindtap="closeSheet">关闭</text></view><view class="field"><text class="field-label">日程标题</text><input class="input" data-field="title" value="{{form.title}}" bindinput="updateForm" placeholder="今天要一起做什么？" /></view><view class="field"><text class="field-label">补充说明</text><textarea class="textarea" data-field="description" value="{{form.description}}" bindinput="updateForm" placeholder="可选" /></view><view class="field row-between"><text class="field-label">全天日程</text><switch checked="{{form.all_day}}" color="#66775f" bindchange="toggleAllDay" /></view><view class="field"><text class="field-label">日期</text><picker mode="date" data-field="date" value="{{form.date}}" bindchange="updateForm"><view class="picker">{{form.date}}</view></picker></view><view wx:if="{{!form.all_day}}" class="field"><text class="field-label">开始时间</text><picker mode="time" data-field="time" value="{{form.time}}" bindchange="updateForm"><view class="picker">{{form.time}}</view></picker></view><button class="primary-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submit">{{editingEvent ? '保存修改' : '写进日历'}}</button></view></view>
+</view>

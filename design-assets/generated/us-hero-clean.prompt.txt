@@ -1,0 +1,22 @@
+Mode: built-in image_gen edit (model is not selectable by this tool; a GPT Image 2.5 model name was not asserted).
+Input: D:/1项目/情侣oa/design-qa-artifacts/reference-regions/us-hero.png
+Input size: 777 x 474 pixels.
+
+Use case: precise-object-edit
+Asset type: reusable raster background for a pixel-faithful Chinese couples scrapbook website hero.
+Input image: Image 1 is the exact EDIT TARGET, a 777 by 474 pixel crop. It is not loose inspiration.
+Primary request: Remove every visible Chinese character, every digit in “826”, the “天” character, all quotation marks and punctuation, and the pink heart and small outlined heart glyphs. Reconstruct only the paper texture behind these removed marks. The top-left heading and paragraph area must be blank paper; the full left-lower torn paper strip must contain no text; the small paper underneath the photograph at lower-right must be entirely free of text or heart marks.
+Preserve as exactly as possible: the overall 777:474 composition and framing; the warm off-white real paper grain and shadows; all torn paper boundaries and overlaps; brass binder ring at the left; both pieces of green tape; the slightly rotated Polaroid photo and its white frame, depicting the same couple from behind at sunset with their heads together; the same buildings/sky/water in the photo; the same right-edge leaves and their positions; and the faint fine vertical separator line in the large lower-left paper.
+Constraints: This is a surgical cleanup, not a redesign. Keep all object positions, sizes, rotations, edges, lighting, colors, photographic details, crop boundaries and perspective unchanged. Preserve the faint thin vertical line on the lower paper. Do not create new objects. Do not crop, expand, reframe, shift, sharpen, beautify, stylize or recolor the image. Do not add any letters, numbers, watermarks, captions, hearts or logos. Return a clean full image of the same aspect ratio, with only the specified text and heart marks removed.
+
+Second targeted cleanup:
+Use case: precise-object-edit
+Input image: the previously cleaned scrapbook background is the exact edit target.
+Make exactly one tiny surgical correction: remove the clipped black ink/letter fragment at the extreme top image edge near 79% of the image width (around x=1264, y=0 through 11 in this 1606x979 input). Fill that tiny mark with the matching surrounding off-white paper. Keep the nearby thin diagonal paper edge/shadow intact.
+Everything else must remain identical to the input, including dimensions and composition, all paper grain, the brass ring, both green tapes, photograph of the same couple, photo border, right leaves, lower vertical thin separator line, all existing blank paper areas and shadows. Do not redraw or change anything else. No text, numbers, letters or hearts anywhere. Preserve original aspect ratio 777:474.
+
+Output source: C:/Users/q9801/.codex/generated_images/01a0a978-aa5f-73a0-b855-20e9e9cee332/exec-281625a0-e2b2-4939-8050-e0692e0b6b4e.png
+Original generated copy: D:/1项目/情侣oa/design-assets/generated/us-hero-clean.generated.png (1606 x 979)
+Project-ready asset: D:/1项目/情侣oa/design-assets/generated/us-hero-clean.png (777 x 474)
+Only postprocessing: sharp resize to exact original crop dimensions, PNG encoding.
+Review: Chinese text, numerals, punctuation and heart glyphs removed; tiny clipped top-edge ink fragment removed on the second pass. The paper seam and lower vertical separator remain. Broad object positions are preserved. Image generation still re-synthesizes texture and photograph details, so this is not a byte-exact preservation of the unedited source pixels.

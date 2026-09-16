@@ -1,0 +1,9 @@
+.top-safe { padding-top:0; }
+.welcome-hero { min-height:350rpx; }
+.avatar-options { display:flex; gap:20rpx; }
+.avatar-option { display:flex; align-items:center; justify-content:center; width:80rpx; height:80rpx; border:4rpx solid transparent; border-radius:50%; background:#dfe5d8; color:#566451; }
+.avatar-option:nth-child(2),.avatar-option:nth-child(4) { background:#fae4dc; color:#a75e4a; }
+.avatar-option.selected { border-color:#66775f; box-shadow:0 0 0 6rpx rgba(102,119,95,.12); }
+.invite-input { text-transform:uppercase; letter-spacing:6rpx; font-weight:700; }
+.invitation-card { text-align:center; }
+.invitation-code { display:block; margin:34rpx 0 20rpx; color:#52624e; font-size:52rpx; font-weight:700; letter-spacing:8rpx; }

@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "source": "generated/task-hero-clean.png",
+      "runtime": "../miniprogram/assets/journal/task-hero.jpg",
+      "width": 780,
+      "height": 396,
+      "bytes": 56237,
+      "method": "image_gen reference edit; opaque JPEG at runtime"
+    },
+    {
+      "source": "generated/approval-hero-clean.png",
+      "runtime": "../miniprogram/assets/journal/approval-hero.jpg",
+      "width": 780,
+      "height": 380,
+      "bytes": 53473,
+      "method": "image_gen reference edit; opaque JPEG at runtime"
+    },
+    {
+      "source": "generated/us-hero-clean.png",
+      "runtime": "../miniprogram/assets/journal/us-hero.jpg",
+      "width": 777,
+      "height": 474,
+      "bytes": 56756,
+      "method": "image_gen reference edit; opaque JPEG at runtime"
+    },
+    {
+      "source": "generated/calendar-stage-clean.png",
+      "runtime": "../miniprogram/assets/journal/calendar-stage.jpg",
+      "width": 780,
+      "height": 625,
+      "bytes": 47788,
+      "method": "image_gen reference edit; opaque JPEG at runtime"
+    },
+    {
+      "source": "generated/task-card-clean.png",
+      "runtime": "../miniprogram/assets/journal/task-card.jpg",
+      "width": 744,
+      "height": 119,
+      "bytes": 7619,
+      "method": "image_gen reference edit; opaque JPEG at runtime"
+    },
+    {
+      "source": "generated/approval-card-clean.png",
+      "runtime": "../miniprogram/assets/journal/approval-card.jpg",
+      "width": 744,
+      "height": 214,
+      "bytes": 14375,
+      "method": "image_gen reference edit; opaque JPEG at runtime"
+    },
+    {
+      "source": "generated/paper-texture.png",
+      "runtime": "../miniprogram/assets/journal/paper-texture.jpg",
+      "width": 512,
+      "height": 512,
+      "bytes": 18332,
+      "method": "image_gen reference edit; opaque JPEG at runtime"
+    }
+  ]
+}

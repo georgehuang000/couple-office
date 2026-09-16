@@ -1,0 +1,60 @@
+<view class="page no-tab">
+  <view class="brand top-safe">
+    <image class="brand-mark" src="/assets/brand-mark.png" mode="aspectFit" />
+    <view><text class="brand-title">两人事务所</text><text class="brand-subtitle">把平凡的日子，过成我们喜欢的样子</text></view>
+  </view>
+
+  <view class="hero welcome-hero">
+    <image class="hero-bg" src="/assets/home-hero.png" mode="aspectFit" />
+    <view class="hero-copy"><text class="hero-title">两个人，\n一生的生活实验</text><text class="hero-note">一起记下、商量和完成生活里的小事。</text></view>
+  </view>
+
+  <view wx:if="{{loading}}" class="paper-card empty">正在确认你的身份…</view>
+
+  <block wx:else>
+    <view wx:if="{{errorText}}" class="paper-card">
+      <text class="title">开发环境还差一步</text>
+      <text class="body">{{errorText}}</text>
+      <button wx:if="{{demoAvailable}}" class="primary-button" bindtap="enterDemo">先看看完整演示</button>
+      <button class="secondary-button" bindtap="toggleDeveloper">开发身份初始化</button>
+      <view wx:if="{{showDeveloper}}" class="field">
+        <input class="input" password placeholder="输入至少24位临时初始化令牌" value="{{bootstrapToken}}" data-field="bootstrapToken" bindinput="setField" />
+        <button class="primary-button" bindtap="bootstrap">建立开发身份</button>
+      </view>
+    </view>
+
+    <block wx:if="{{auth}}">
+      <view wx:if="{{auth.user.archived_exports.length}}" class="paper-card">
+        <text class="title">历史空间只读导出</text><text class="body muted">解绑后30天内可导出，新空间不会继承旧数据。</text>
+        <button wx:for="{{auth.user.archived_exports}}" wx:key="couple_id" class="secondary-button" data-id="{{item.couple_id}}" bindtap="exportArchived">导出历史资料</button>
+      </view>
+      <view wx:if="{{auth.is_new}}" class="paper-card">
+        <text class="title">先认识一下你</text><text class="body muted">只填写在两人空间里使用的称呼，不读取微信昵称或头像。</text>
+        <view class="field"><text class="field-label">你的称呼</text><input class="input" maxlength="24" placeholder="例如：小宇" value="{{nickname}}" data-field="nickname" bindinput="setField" /></view>
+        <view class="field"><text class="field-label">预设头像</text><view class="avatar-options"><view wx:for="{{avatars}}" wx:key="*this" class="avatar-option {{avatarKey === item ? 'selected' : ''}}" data-value="{{item}}" bindtap="selectAvatar">{{item === 'sage' ? '宇' : item === 'peach' ? '美' : item === 'sun' ? '阳' : '月'}}</view></view></view>
+        <button class="primary-button" bindtap="saveProfile">保存称呼</button>
+      </view>
+
+      <view wx:if="{{!generatedCode}}" class="paper-card">
+        <view class="segmented"><view class="segment {{mode === 'create' ? 'active' : ''}}" data-mode="create" bindtap="setMode">创建空间</view><view class="segment {{mode === 'join' ? 'active' : ''}}" data-mode="join" bindtap="setMode">加入对方</view></view>
+        <block wx:if="{{mode === 'create'}}">
+          <view class="field"><text class="field-label">空间名称</text><input class="input" maxlength="30" value="{{coupleName}}" data-field="coupleName" bindinput="setField" /></view>
+          <view class="field"><text class="field-label">在一起的日期</text><picker mode="date" value="{{startDate}}" bindchange="setStartDate"><view class="picker">{{startDate}}</view></picker></view>
+          <button class="primary-button" bindtap="createSpace">创建我们的空间</button>
+        </block>
+        <block wx:else>
+          <view class="field"><text class="field-label">10位邀请码</text><input class="input invite-input" maxlength="10" placeholder="例如 ABCD234567" value="{{inviteCode}}" data-field="inviteCode" bindinput="setField" /></view>
+          <button class="primary-button" bindtap="joinSpace">提交加入申请</button>
+        </block>
+      </view>
+
+      <view wx:if="{{generatedCode}}" class="paper-card invitation-card">
+        <text class="title">邀请另一半加入</text><text class="body muted">邀请码24小时有效，重新生成会让旧码立即失效。</text>
+        <text class="invitation-code">{{generatedCode}}</text>
+        <button class="primary-button" bindtap="copyInvite">复制邀请码</button>
+        <button class="secondary-button" bindtap="revokeInvite">撤销这次邀请</button>
+        <button class="secondary-button" bindtap="goWorkbench">先进入工作台</button>
+      </view>
+    </block>
+  </block>
+</view>
