@@ -1,0 +1,13 @@
+node_modules/
+.build/
+miniprogram/config/env.local.ts
+cloudfunctions/**/node_modules/
+*.log
+private.*.key
+*.zip
+backups/
+exports/
+coverage/
+dist/
+design-qa-artifacts/
+project.private.config.json

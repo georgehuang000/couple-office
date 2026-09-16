@@ -1,0 +1,23 @@
+<view class="page">
+  <text class="title">两人事务所</text>
+  <text class="body">P0 身份能力验证 · P1 工程骨架</text>
+
+  <view class="card">
+    <text class="title">可信身份</text>
+    <text class="status {{state === 'success' ? 'success' : (state === 'error' || state === 'unconfigured' ? 'error' : '')}}">{{statusText}}</text>
+    <text wx:if="{{userId}}" class="body">业务用户 ID：{{userId}}</text>
+    <button class="primary-button" loading="{{state === 'loading'}}" disabled="{{state === 'loading' || state === 'unconfigured'}}" bindtap="verifyIdentity">验证当前身份</button>
+  </view>
+
+  <view wx:if="{{state !== 'success'}}" class="card">
+    <text class="title">受控开发初始化</text>
+    <text class="body muted">仅在账号持有人临时开启云端初始化令牌时使用。完成两名测试用户登记后，应立即关闭。</text>
+    <input class="token-input" password="{{true}}" placeholder="输入临时初始化令牌" value="{{bootstrapToken}}" bindinput="setBootstrapToken" />
+    <button class="primary-button" loading="{{state === 'loading'}}" disabled="{{state === 'loading' || state === 'unconfigured'}}" bindtap="bootstrapIdentity">建立开发身份</button>
+  </view>
+
+  <view class="card">
+    <text class="title">下一阶段</text>
+    <text class="body muted">待完成双真机验证后，再开始创建空间与双人绑定。当前没有待办、审批或演示数据。</text>
+  </view>
+</view>

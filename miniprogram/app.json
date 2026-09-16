@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/workbench/index",
+    "pages/items/index",
+    "pages/calendar/index",
+    "pages/us/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "两人事务所",
+    "navigationBarBackgroundColor": "#FFFDF9",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F7F4EF"
+  },
+  "tabBar": {
+    "color": "#7C746C",
+    "selectedColor": "#846D52",
+    "backgroundColor": "#FFFDF9",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/workbench/index", "text": "工作台" },
+      { "pagePath": "pages/items/index", "text": "事项" },
+      { "pagePath": "pages/calendar/index", "text": "日历" },
+      { "pagePath": "pages/us/index", "text": "我们" }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
+
